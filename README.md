@@ -29,8 +29,6 @@ This project implements an end-to-end quantitative analytics and predictive mach
 
 ## 🛠️ Data Architecture & Defensive Pipeline
 
-## 🛠️ Data Architecture & Defensive Pipeline
-
 ```text
   [Raw 414 MB CSV] ---> [Defensive Schema Repair] ---> [Feature Engineering]
                                (40-Col Realignment)        (Multi-Platform, Ratios)
