@@ -1,4 +1,4 @@
-# 🎮 Steam Market Intelligence: De-Risking Game Production via Pre-Launch Signals & Non-Parametric Modeling
+# 🎮 Steam Market Intelligence: Commercial Traction Prediction & Non-Parametric Modeling
 
 [![Python 3.12](https://img.shields.io/badge/Python-3.12-blue.svg)](https://www.python.org/)
 [![Scikit-Learn](https://img.shields.io/badge/Library-Scikit--Learn-orange.svg)](https://scikit-learn.org/)
@@ -28,3 +28,23 @@ This project implements an end-to-end quantitative analytics and predictive mach
 ---
 
 ## 🛠️ Data Architecture & Defensive Pipeline
+
+## 🛠️ Data Architecture & Defensive Pipeline
+
+```text
+  [Raw 414 MB CSV] ---> [Defensive Schema Repair] ---> [Feature Engineering]
+                               (40-Col Realignment)        (Multi-Platform, Ratios)
+                                                                     │
+                     ┌───────────────────────────────────────────────┘
+                     │
+                     ├──────────────────────────────┐
+                     ▼                              ▼
+        [Statistical Analysis]             [Temporal ML Split]
+       - Gini Inequality (0.967)          - Train: 2014-2020 (38,867)
+       - Mann-Whitney U Testing           - Test:  2021-2022 (24,083)
+       - Opportunity Matrix                         │
+                                                    ▼
+                                       [Benchmark & Explanations]
+                                       - HistGradientBoosting (0.832 AUC)
+                                       - Permutation Importance
+```
