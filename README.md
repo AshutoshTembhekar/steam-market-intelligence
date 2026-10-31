@@ -46,3 +46,103 @@ This project implements an end-to-end quantitative analytics and predictive mach
                                        - HistGradientBoosting (0.832 AUC)
                                        - Permutation Importance
 ```
+
+### Data Quality & Structural Fixes
+* **CSV Schema Realignment:** Resolved an unindexed schema shift where an unquoted `DiscountDLC count` in raw rows caused field corruption past the `Price` column.
+* **Catalog Inactivity Screening:** Filtered non-commercial records, demos, and internal playtests (19.56% `"0 - 0"` estimated owners; 100% missing `Movies` media data).
+* **Mature Cohort Selection:** Evaluated on the 2014–2022 release window ($N = 62,950$) to guarantee fair post-launch review maturation without survival bias.
+
+---
+
+## 📈 Exploratory & Statistical Rigor
+
+### 1. Market Concentration (Lorenz Curve)
+Because review volume exhibits severe leptokurtosis ($\text{Skewness} = +175.21$, $\text{Kurtosis} = 44,177.10$), standard parametric statistics ($t$-tests, standard deviations) fail. We evaluated engagement using the **Lorenz Curve**:
+
+$$\text{Gini} = 1 - 2 \int_0^1 L(p) \, dp = 0.967$$
+
+### 2. Hypothesis Testing Results
+* **Paid vs. Free-to-Play Mechanics:**
+  * *Test:* Two-sided Mann-Whitney U test on review volumes.
+  * *Result:* $U = 1.34 \times 10^{-154}$, **Probability of Superiority = 0.421** for free games. Paid games maintain higher median sustained engagement than uncurated free titles.
+* **Platform Reach Impact:**
+  * *Contingency Analysis:* Multi-platform releases ($\ge 2$ OS) vs. Single-platform (Windows-only).
+  * *Odds Ratio:* **2.10** ($95\%\text{ CI: } [2.02, 2.18]$, $\chi^2 = 8.20 \times 10^{-308}$).
+
+---
+
+## 🤖 Predictive Machine Learning Benchmark
+
+### Problem Framing
+Predict whether a proposed game listing will achieve **Commercial Traction ($\ge 100$ total reviews)** using **strictly pre-launch attributes** available prior to Day 1.
+
+### Temporal Holdout Design
+To avoid temporal data leakage:
+* **Training Set:** Releases from **2014 to 2020** ($N = 38,867$, Hit Rate = 32.4%)
+* **Testing Set:** Releases from **2021 to 2022** ($N = 24,083$, Hit Rate = 15.4%)
+
+### Model Comparison
+
+| Model | ROC-AUC | PR-AUC (Baseline: 0.154) | Precision @ Top 10% | Lift @ Top 10% |
+| :--- | :---: | :---: | :---: | :---: |
+| **Logistic Regression (L2)** | 0.780 | 0.397 | 49.7% | 3.22x |
+| **HistGradientBoosting** | **0.832** | **0.563** | **64.0%** | **4.15x** |
+
+![Model Benchmark Curves](steam_model_benchmark.png)
+
+### Feature Importance Drivers (Permutation Importance on Test Set)
+1. **`n_languages` ($+0.0830 \pm 0.0028$):** The primary determinant. Multi-language localization expands total addressable market (TAM) across Asian and European storefronts.
+2. **`n_achievements` ($+0.0284 \pm 0.0020$):** Strong proxy for completionist gameplay loops and progression design.
+3. **`has_steam_cloud` ($+0.0230 \pm 0.0003$):** Direct marker of production budget, quality assurance, and Steam Deck verification readiness.
+4. **`desc_len` ($+0.0134 \pm 0.0006$):** Store page copy investment and narrative presentation depth.
+5. **`n_screenshots` ($+0.0123 \pm 0.0008$):** Visual richness on the store front driving wishlist conversions.
+
+---
+
+## 💡 Strategic Takeaways for Game Studios & Publishers
+
+1. **Avoid the Uncurated Casual/Indie Trap:** Building a 2D casual platformer or puzzle game places you in direct competition with 70% of the catalog for less than 19% of platform review demand. Focus capital on higher-demand genres (Action, RPG, Simulation).
+2. **Prioritize Localization Over Marketing Spend:** Translating store pages and text into 5+ core languages (Simplified Chinese, Japanese, German, Russian, Spanish) yields higher traction lift than increasing asset screenshot counts.
+3. **Mandate Platform Features Early:** Integrating Steam Cloud, achievements, and Linux/Proton compatibility early costs minimal developer hours relative to the $2.10\times$ odds multiplier it provides.
+
+---
+
+## 💻 Repository Structure & Reproducibility
+
+112  ```text
+113  ├── steam_eda.py             # Pipeline: ETL, data auditing, non-parametric tests, Lorenz curves
+114  ├── steam_ml_benchmark.py    # Pipeline: Feature engineering, temporal split, ROC/PR evaluation
+115  ├── steam_model_benchmark.png # ROC and Precision-Recall evaluation figures
+116  └── README.md                # Case study documentation
+117  ```
+118
+119  ### Quickstart
+120
+121  ```bash
+122  # 1. Clone repository
+123  git clone https://github.com/AshutoshTembhekar/steam-market-intelligence.git
+124  cd steam-market-intelligence
+125
+126  # 2. Install dependencies
+127  pip install pandas numpy scipy matplotlib seaborn scikit-learn
+128
+129  # 3. Run exploratory data analysis & statistical tests
+130  python steam_eda.py
+131
+132  # 4. Run machine learning benchmark
+133  python steam_ml_benchmark.py
+134  ```
+
+Dependencies
+python >= 3.10
+
+pandas, numpy, scipy
+
+scikit-learn
+
+matplotlib, seaborn
+
+👤 Author
+Ashutosh Dhananjay Tembhekar
+
+Data Analytics Specialist
