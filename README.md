@@ -57,10 +57,11 @@ This project implements an end-to-end quantitative analytics and predictive mach
 ## 📈 Exploratory & Statistical Rigor
 
 ### 1. Market Concentration (Lorenz Curve)
-Because review volume exhibits severe leptokurtosis ($\text{Skewness} = +175.21$, $\text{Kurtosis} = 44,177.10$), standard parametric statistics ($t$-tests, standard deviations) fail. We evaluated engagement using the **Lorenz Curve**:
-
+Because review volume exhibits severe leptokurtosis ($\text{Skewness} = +175.21$, $\text{Kurtosis} = 44,177.10$), standard parametric statistics ($t$-tests, standard deviations) fail. We evaluated engagement using the
+**Lorenz Curve**:
 $$\text{Gini} = 1 - 2 \int_0^1 L(p) \, dp = 0.967$$
 
+![Lorenz Curve & Statistical EDA](steam_eda_dashboard.png)
 ### 2. Hypothesis Testing Results
 * **Paid vs. Free-to-Play Mechanics:**
   * *Test:* Two-sided Mann-Whitney U test on review volumes.
