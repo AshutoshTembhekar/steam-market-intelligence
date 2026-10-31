@@ -109,29 +109,29 @@ To avoid temporal data leakage:
 
 ## 💻 Repository Structure & Reproducibility
 
-112  ```text
-113  ├── steam_eda.py             # Pipeline: ETL, data auditing, non-parametric tests, Lorenz curves
-114  ├── steam_ml_benchmark.py    # Pipeline: Feature engineering, temporal split, ROC/PR evaluation
-115  ├── steam_model_benchmark.png # ROC and Precision-Recall evaluation figures
-116  └── README.md                # Case study documentation
-117  ```
-118
-119  ### Quickstart
-120
-121  ```bash
-122  # 1. Clone repository
-123  git clone https://github.com/AshutoshTembhekar/steam-market-intelligence.git
-124  cd steam-market-intelligence
-125
-126  # 2. Install dependencies
-127  pip install pandas numpy scipy matplotlib seaborn scikit-learn
-128
-129  # 3. Run exploratory data analysis & statistical tests
-130  python steam_eda.py
-131
-132  # 4. Run machine learning benchmark
-133  python steam_ml_benchmark.py
-134  ```
+  ```text
+  ├── steam_eda.py             # Pipeline: ETL, data auditing, non-parametric tests, Lorenz curves
+  ├── steam_ml_benchmark.py    # Pipeline: Feature engineering, temporal split, ROC/PR evaluation
+  ├── steam_model_benchmark.png # ROC and Precision-Recall evaluation figures
+  └── README.md                # Case study documentation
+ ```
+
+  ### Quickstart
+
+  ```bash
+  # 1. Clone repository
+ git clone https://github.com/AshutoshTembhekar/steam-market-intelligence.git
+  cd steam-market-intelligence
+
+ # 2. Install dependencies
+  pip install pandas numpy scipy matplotlib seaborn scikit-learn
+
+  # 3. Run exploratory data analysis & statistical tests
+  python steam_eda.py
+
+  # 4. Run machine learning benchmark
+  python steam_ml_benchmark.py
+  ```
 
 Dependencies
 python >= 3.10
@@ -143,6 +143,7 @@ scikit-learn
 matplotlib, seaborn
 
 👤 Author
+
 Ashutosh Dhananjay Tembhekar
 
 Data Analytics Specialist
