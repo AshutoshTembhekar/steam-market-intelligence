@@ -105,8 +105,6 @@ To avoid temporal data leakage:
 
 ---
 
-## 💻 Repository Structure & Reproducibility
-
 ### 🗂 Repository Structure & Reproducibility
 
 | File | Type | Description |
