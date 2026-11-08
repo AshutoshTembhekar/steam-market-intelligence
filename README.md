@@ -26,25 +26,22 @@ This project implements an end-to-end quantitative analytics and predictive mach
 * **Pre-Launch Predictive Power:** Using strictly launch-time attributes (localization depth, achievements, media count, cloud integration), **Histogram Gradient Boosting** achieved an **ROC-AUC of 0.832** and **PR-AUC of 0.563** (vs. a 15.4% random baseline), delivering **64.0% Precision at the Top 10% cutoff**.
 
 ---
+### 🛠 Data Architecture & Defensive Pipeline
 
-## 🛠️ Data Architecture & Defensive Pipeline
+```mermaid
+flowchart TD
+    A["Raw Steam Catalog<br/>(434 MB CSV)"] --> B["Defensive Schema Repair<br/>(40-Column Realignment)"]
+    B --> C["Feature Engineering<br/>(Multi-Platform Flags, Pricing & Engagement Ratios)"]
+    
+    C --> D["Statistical Analysis<br/>• Gini Inequality (0.967)<br/>• Mann-Whitney U Testing<br/>• Opportunity Matrix"]
+    C --> E["Temporal ML Split<br/>• Train: 2014–2020 (38,867)<br/>• Test: 2021–2022 (24,083)"]
+    
+    E --> F["Benchmark & Explainability<br/>• HistGradientBoosting (0.832 AUC)<br/>• Permutation Feature Importance"]
 
-```text
-  [Raw 414 MB CSV] ---> [Defensive Schema Repair] ---> [Feature Engineering]
-                               (40-Col Realignment)        (Multi-Platform, Ratios)
-                                                                     │
-                     ┌───────────────────────────────────────────────┘
-                     │
-                     ├──────────────────────────────┐
-                     ▼                              ▼
-        [Statistical Analysis]             [Temporal ML Split]
-       - Gini Inequality (0.967)          - Train: 2014-2020 (38,867)
-       - Mann-Whitney U Testing           - Test:  2021-2022 (24,083)
-       - Opportunity Matrix                         │
-                                                    ▼
-                                       [Benchmark & Explanations]
-                                       - HistGradientBoosting (0.832 AUC)
-                                       - Permutation Importance
+    classDef default fill:#1E293B,stroke:#38BDF8,stroke-width:1.5px,color:#F8FAFC;
+    classDef highlight fill:#0F172A,stroke:#10B981,stroke-width:2px,color:#FFFFFF;
+    class A,B,C default;
+    class D,E,F highlight;
 ```
 
 ### Data Quality & Structural Fixes
@@ -110,12 +107,14 @@ To avoid temporal data leakage:
 
 ## 💻 Repository Structure & Reproducibility
 
-  ```text
-  ├── steam_eda.py             # Pipeline: ETL, data auditing, non-parametric tests, Lorenz curves
-  ├── steam_ml_benchmark.py    # Pipeline: Feature engineering, temporal split, ROC/PR evaluation
-  ├── steam_model_benchmark.png # ROC and Precision-Recall evaluation figures
-  └── README.md                # Case study documentation
- ```
+### 🗂 Repository Structure & Reproducibility
+
+| File | Type | Description |
+| :--- | :--- | :--- |
+| `steam_eda.py` | Python Script | Data auditing, 40-col schema repair, non-parametric tests, and Lorenz curve generation |
+| `steam_ml_benchmark.py` | Python Script | Feature engineering, temporal split, and HistGradientBoosting ROC/PR pipeline |
+| `steam_model_benchmark.png` | Asset | Evaluation visualizations (ROC-AUC, Precision-Recall, Permutation Importance) |
+| `README.md` | Documentation | Executive case study, economic takeaways, and reproducibility specifications |
 
   ### Quickstart
 
